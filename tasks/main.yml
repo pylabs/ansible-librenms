@@ -1,0 +1,58 @@
+---
+- block
+  - name: install librenms
+    script: "install_librenms.sh '{{ librenms_db_user }}' '{{ librenms_db_password }}'"
+    args:
+      creates: "/srv/www/librenms"
+  - name: setup mysql config
+    copy:
+      src: "99-custom.cnf"
+      dest: "/etc/mysql/mariadb.conf.d/99-custom.cnf"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+  - name: install php timezone
+    template:
+      src: "timezone.ini.j2"
+      dest: "/etc/php/7.3/mods-available/timezone.ini"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+  - name: setup php fpm and cli timezone
+    file:
+      src: "/etc/php/7.3/mods-available/timezone.ini"
+      dest: "/etc/php/7.3/{{ item }}/conf.d/99-timezone.ini"
+      owner: "root"
+      group: "root"
+      state: "link"
+    loop:
+      - fpm
+      - cli
+  - name: reload php fpm service
+    systemd:
+      name: "php7.3-fpm"
+      state: "restarted"
+  - name: remove default nginx config
+    file:
+      path: /etc/nginx/sites-enabled/default
+      state: absent
+  - name: add librenms nginx config file
+    copy:
+      src: "librenms_nginx"
+      dest: "/etc/nginx/sites-available/librenms"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+  - name: activate librenms nginx config
+    file:
+      src: "/etc/nginx/sites-available/librenms"
+      dest: "/etc/nginx/sites-enabled/librenms"
+      owner: "root"
+      group: "root"
+      state: "link"
+  - name: restart nginx
+    systemd:
+      name: "nginx"
+      state: "restarted"
+  tags:
+    - librenms

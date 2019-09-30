@@ -1,0 +1,23 @@
+galaxy_info:
+  role_name: librenms
+  author: William Wu
+  description: Setup LibreNMS on Debian like system
+  company: PyLabs
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Debian
+      versions:
+      - Buster
+      - 10
+    - name: Ubuntu
+      versions:
+      - Xenial Xerus
+      - 16.04
+  galaxy_tags:
+    - debian
+    - ubuntu
+    - librenms
+dependencies:
+  - pylabs.php
+  - pylabs.mariadb
