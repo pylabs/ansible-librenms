@@ -21,7 +21,7 @@ git fetch --tags && git checkout $(git describe --tags $(git rev-list --tags --m
 chown -R librenms:librenms .
 chmod 770 .
 
-su -u librenms ./scripts/composer_wrapper.php install --no-dev
+sudo -u librenms ./scripts/composer_wrapper.php install --no-dev
 
 mysql -u root -e "CREATE DATABASE librenms CHARACTER SET utf8"
 mysql -u root -e "GRANT ALL PRIVILEGES ON librenms.* TO '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}'"
