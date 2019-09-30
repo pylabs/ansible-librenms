@@ -1,7 +1,7 @@
 ---
 - block
   - name: install librenms
-    script: "install_librenms.sh '{{ librenms_db_user }}' '{{ librenms_db_password }}'"
+    script: "install_librenms.sh '{{ librenms_db_user }}' '{{ librenms_db_password }}' '{{ librenms_snmpd_community }}'"
     args:
       creates: "/srv/www/librenms"
   - name: setup mysql config

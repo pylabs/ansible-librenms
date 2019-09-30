@@ -10,6 +10,7 @@ Role Variables
 librenms_timezone: TIMEZONE
 librenms_db_user: DB_USER
 librenms_db_password: DB_PASSWORD
+librenms_snmpd_community: SNMPD_COMMUNITY
 ```
 
 Dependencies
@@ -27,6 +28,7 @@ Example Playbook
     librenms_timezone: "Asia/Taipei"
     librenms_db_user: librenms
     librenms_db_password: librenms_password
+    librenms_snmpd_community: my_community_string
   roles:
      - pylabs.librenms
 ```
