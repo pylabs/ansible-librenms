@@ -23,7 +23,7 @@ chmod 770 .
 
 sudo -u librenms ./scripts/composer_wrapper.php install --no-dev
 
-mysql -u root -e "CREATE DATABASE librenms CHARACTER SET utf8"
+mysql -u root -e "CREATE DATABASE librenms CHARACTER SET utf8 COLLATE utf8_unicode_ci"
 mysql -u root -e "GRANT ALL PRIVILEGES ON librenms.* TO '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}'"
 
 systemctl restart mariadb.service
