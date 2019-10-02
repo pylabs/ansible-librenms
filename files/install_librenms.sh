@@ -35,9 +35,5 @@ curl -o /usr/bin/distro https://raw.githubusercontent.com/librenms/librenms-agen
 chmod +x /usr/bin/distro
 systemctl restart snmpd.service
 
-cp librenms.nonroot.cron /etc/cron.d/librenms
-
-cp misc/librenms.logrotate /etc/logrotate.d/librenms
-
 chown -R librenms:librenms .
 chmod -R ug=rwX ./bootstrap/cache ./storage ./logs ./rrd ./cache
