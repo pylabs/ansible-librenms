@@ -1,7 +1,9 @@
 server {
-    listen 80;
-    root   /srv/www/librenms/html;
-    index  index.php;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+    root /srv/www/librenms/html;
+    index index.php;
 
     charset utf-8;
     gzip on;
