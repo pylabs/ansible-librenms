@@ -5,7 +5,7 @@ DB_USER=$1
 DB_PASSWORD=$2
 SNMPD_COMMUNITY=$3
 
-apt install curl composer fping git graphviz imagemagick mariadb-client mariadb-server mtr-tiny nginx-full nmap php7.3-cli php7.3-curl php7.3-fpm php7.3-gd php7.3-json php7.3-mbstring php7.3-mysql php7.3-snmp php7.3-xml php7.3-zip python-memcache python-mysqldb rrdtool snmp snmpd whois -y
+apt install acl curl composer fping git graphviz imagemagick mariadb-client mariadb-server mtr-tiny nginx-full nmap php7.3-cli php7.3-curl php7.3-fpm php7.3-gd php7.3-json php7.3-mbstring php7.3-mysql php7.3-snmp php7.3-xml php7.3-zip python-memcache python-mysqldb rrdtool snmp snmpd whois -y
 useradd librenms -d /srv/www/librenms -M -r
 usermod -a -G librenms www-data
 
@@ -36,4 +36,6 @@ chmod +x /usr/bin/distro
 systemctl restart snmpd.service
 
 chown -R librenms:librenms .
-chmod -R ug=rwX ./bootstrap/cache ./storage ./logs ./rrd ./cache
+chmod -R ug=rwX ./rrd ./logs ./bootstrap/cache ./storage ./cache
+setfacl -d -m g::rwx ./rrd ./logs ./bootstrap/cache/ ./storage/ ./cache
+setfacl -R -m g::rwx ./rrd ./logs ./bootstrap/cache/ ./storage/ ./cache
