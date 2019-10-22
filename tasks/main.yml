@@ -54,15 +54,5 @@
     systemd:
       name: "nginx"
       state: "restarted"
-  - name: setup cron and logrotate
-    copy:
-      src: "{{ item.src }}"
-      dest: "{{ item.dest }}"
-      owner: "root"
-      group: "root"
-      mode: "0644"
-    loop:
-      - { src: 'librenms.nonroot.cron', dest: '/etc/cron.d/librenms' }
-      - { src: 'librenms.logrotate', dest: '/etc/logrotate.d/librenms' }
   tags:
     - librenms
