@@ -3,7 +3,7 @@
   - name: install librenms
     script: "install_librenms.sh '{{ librenms_db_user }}' '{{ librenms_db_password }}' '{{ librenms_snmpd_community }}'"
     args:
-      creates: "/srv/www/librenms"
+      creates: "/opt/librenms"
   - name: setup mysql config
     copy:
       src: "99-custom.cnf"
