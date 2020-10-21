@@ -1,13 +1,13 @@
 #!/bin/bash
-# https://docs.librenms.org/Installation/Installation-Ubuntu-1804-Nginx/
+# https://docs.librenms.org/Installation/Installation-Debian-10-Nginx/
 
 DB_USER=$1
 DB_PASSWORD=$2
 SNMPD_COMMUNITY=$3
 
-apt install acl -y
 
-apt install curl composer fping git graphviz imagemagick mariadb-client mariadb-server mtr-tiny nginx-full nmap php7.3-cli php7.3-curl php7.3-fpm php7.3-gd php7.3-json php7.3-mbstring php7.3-mysql php7.3-snmp php7.3-xml php7.3-zip python-memcache python-mysqldb rrdtool snmp snmpd whois -y
+apt install acl curl composer fping git graphviz imagemagick mariadb-client mariadb-server mtr-tiny nginx-full nmap php7.3-cli php7.3-curl php7.3-fpm php7.3-gd php7.3-json php7.3-mbstring php7.3-mysql php7.3-snmp php7.3-xml php7.3-zip python-memcache python-mysqldb rrdtool snmp snmpd whois python3-pymysql python3-dotenv python3-redis python3-setuptools
+
 
 useradd librenms -d /opt/librenms -M -r
 usermod -a -G librenms www-data
@@ -30,6 +30,7 @@ mysql -u root -e "CREATE USER '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSW
 mysql -u root -e "GRANT ALL PRIVILEGES ON librenms.* TO '${DB_USER}'@'localhost'"
 
 cp /opt/librenms/snmpd.conf.example /etc/snmp/snmpd.conf
+chmod 600 /etc/snmp/snmpd.conf
 sed -i "s/RANDOMSTRINGGOESHERE\$/${SNMPD_COMMUNITY}/" /etc/snmp/snmpd.conf
 
 curl -o /usr/bin/distro https://raw.githubusercontent.com/librenms/librenms-agent/master/snmp/distro
