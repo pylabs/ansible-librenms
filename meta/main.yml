@@ -4,7 +4,7 @@ galaxy_info:
   description: Setup LibreNMS on Debian like system
   company: PyLabs
   license: MIT
-  min_ansible_version: 2.4
+  min_ansible_version: 2.11
   platforms:
     - name: Debian
       versions:
